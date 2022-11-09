@@ -31,7 +31,7 @@
             Warna</h1>
         <div class="grid-container" x-data="game()">
             <template x-for="card in cards">
-                <div>
+                <div class="aspect-[4/3]">
                     <div class="grid-card"
                         :class="['bg-' + (card.isFlipped ? card.color : 'gray') + '-500', card.animate]"
                         @click="flipCard(card)" x-show="!card.cleared"></div>

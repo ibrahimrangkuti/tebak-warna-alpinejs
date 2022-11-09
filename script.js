@@ -52,7 +52,7 @@ const game = () => {
         cleared: false,
         animate: "",
       },
-    ],
+    ].sort(() => Math.random() - 0.5),
     get flippedCards() {
       return this.cards.filter((card) => card.isFlipped);
     },
