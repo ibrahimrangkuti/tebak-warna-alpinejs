@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .grid-container {
+                @apply grid grid-cols-2 gap-2 p-2 md:grid-cols-4 md:gap-4 md:p-4 content-center;
+            }
+
+            .grid-card {
+                @apply aspect-[4/3] rounded-lg hover:scale-95 transition-all duration-500;
+            }
+        }
+    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1
+            class="font-bold text-6xl text-center p-4 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
+            Tebak
+            Warna</h1>
+        <div class="grid-container" x-data="game()">
+            <template x-for="card in cards">
+                <div>
+                    <div class="grid-card" :class="'bg-' + (card.isFlipped ? card.color : 'gray') + '-500'"
+                        @click="flipCard(card)" x-show="!card.cleared"></div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <script>
+        const delay = (milliseconds = 700) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+        const game = () => {
+            return {
+                cards: [
+                    {
+                        color: 'red',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'green',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'blue',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'yellow',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'red',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'green',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'blue',
+                        isFlipped: false,
+                        cleared: false
+                    },
+                    {
+                        color: 'yellow',
+                        isFlipped: false,
+                        cleared: false
+                    }
+                ],
+                get flippedCards() {
+                    return this.cards.filter((card) => card.isFlipped);
+                },
+                get remainingCards() {
+                    return this.cards.filter((card) => !card.cleared);
+                },
+                async flipCard(card) {
+                    // buka atau tutup kartu
+                    card.isFlipped = !card.isFlipped
+
+                    // cek ketika sudah ada 2 kartu terbuka dan cek warna nya
+                    if (this.flippedCards.length = 2) {
+                        if (this.flippedCards[0].color === this.flippedCards[1].color) {
+                            await delay()
+                            this.flippedCards.forEach((card) => card.cleared = true)
+
+                            // cek apakah kartu sudah hilang semua
+                            if (this.remainingCards.length = 0) {
+                                alert('You won!')
+                            }
+                        }
+
+                        // tutup semua kartu setelah pengecekan
+                        await delay()
+                        this.flippedCards.forEach((card) => card.isFlipped = false);
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
