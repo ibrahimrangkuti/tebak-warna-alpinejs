@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
         @layer components {
@@ -31,7 +32,8 @@
         <div class="grid-container" x-data="game()">
             <template x-for="card in cards">
                 <div>
-                    <div class="grid-card" :class="'bg-' + (card.isFlipped ? card.color : 'gray') + '-500'"
+                    <div class="grid-card"
+                        :class="['bg-' + (card.isFlipped ? card.color : 'gray') + '-500', card.animate]"
                         @click="flipCard(card)" x-show="!card.cleared"></div>
                 </div>
             </template>
